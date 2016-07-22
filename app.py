@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, redirect, url_for, request, session, flash
+from flask import Flask, render_template, redirect, url_for, request, session, flash, g
 from functools import wraps
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = 'temporary key'
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/posts"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+
+# create db
+db = SQLAlchemy(app)
 
 
 def login_required(f):
